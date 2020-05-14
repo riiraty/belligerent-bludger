@@ -3,14 +3,14 @@
 
 ## Documentation
 
-[Design document](https://github.com/riiraty/belligerent-bludger)
+[Design document](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/design-document.md)
 
-[Implementation document](https://github.com/riiraty/belligerent-bludger)
+[Implementation document](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/implementation-document.md)
 
-[Testing document](https://github.com/riiraty/belligerent-bludger)
+[Testing document](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/testing-documentation.md)
 
-[User guide](https://github.com/riiraty/belligerent-bludger)
+[User guide](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/user-guide.md)
 
 ## Weekly reports
 
-[Week 1](https://github.com/riiraty/belligerent-bludger)
+[Week 1](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/weekly-reports/weekly-report-1.md)
