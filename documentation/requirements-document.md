@@ -1,4 +1,4 @@
-## Design document
+## Requirements document
 
 The project will implement RSA (Rivest–Shamir–Adleman) cryptography algorithm. Cryptography is an interest of mine, I want to use this opportunity to get in to subject hands on. There will be a text-based user interface.
 
