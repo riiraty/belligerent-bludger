@@ -1,13 +1,17 @@
 # Tiralabra
 [TKT20010](https://courses.helsinki.fi/fi/TKT20010) Aineopintojen harjoitustyö: Tietorakenteet ja algoritmit, Helsingin yliopisto, kesä 2020 – Intermediate Studies Project: Data Structures and Algorithms, University of Helsinki, summer 2020
 
+## Topic
+
+Implementation of RSA cryptography algorithm in Java, simple TUI.
+
 ## Documentation
 
-[Design document](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/design-document.md)
+[Requirements](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/requirements-document.md)
 
-[Implementation document](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/implementation-document.md)
+[Implementation](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/implementation-document.md)
 
-[Testing document](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/testing-documentation.md)
+[Testing documentation](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/testing-documentation.md)
 
 [User guide](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/user-guide.md)
 
