@@ -22,11 +22,11 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'riiraty.Main'
     }
 }
 
-mainClassName = 'Main'
+mainClassName = 'riiraty.Main'
 
 run {
     standardInput = System.in
@@ -39,7 +39,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['Main*'])
+            fileTree(dir: it, exclude: ['riiraty/Main*', 'riiraty/ui/*'])
         }))
     }
 }
