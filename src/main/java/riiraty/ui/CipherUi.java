@@ -1,16 +1,23 @@
 package riiraty.ui;
 
+import java.math.BigInteger;
 import java.util.Scanner;
+import riiraty.cipher.MyRSA;
 
+/**
+ * Command Line Interface.
+ */
 public class CipherUi {
 
     private final Scanner scanner;
+    private MyRSA crypter;
 
     public CipherUi(Scanner scanner) {
         this.scanner = scanner;
     }
 
     public void start() {
+        crypter = new MyRSA(BigInteger.valueOf(14), BigInteger.valueOf(5), BigInteger.valueOf(11));
         System.out.println("Hello agent.");
         mainMenu();
     }
@@ -32,7 +39,17 @@ public class CipherUi {
             if (command.equals("decrypt")) {
                 System.out.println("--- decrypting ---");
             } else if (command.equals("encrypt")) {
+                System.out.print("Your message: ");
+                String message = scanner.nextLine();
+
                 System.out.println("--- encrypting ---");
+                System.out.println("");
+
+                BigInteger messageAsBigInt = crypter.StringToBigInt(message);
+                BigInteger encrypted = crypter.encrypt(messageAsBigInt);
+
+                System.out.println("encrypted message: " + encrypted);
+
             } else if (command.equals("keygen")) {
                 System.out.println("--- generating keys ---");
             } else if (command.equals("help")) {
