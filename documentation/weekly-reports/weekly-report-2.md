@@ -28,4 +28,4 @@ Date | Time (h) | Progress
 20.5.| 5 | Research and design, simple CLI implementation
 21.5.| 6,5 | Starting on javadoc, doing maths on paper, research, implementing crypter
 22.5.| 7 | Research, starting on keygen implementation, updating documentation
-Total:| 24
+Total:| 23,5
