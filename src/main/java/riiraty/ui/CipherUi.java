@@ -5,7 +5,7 @@ import java.util.Scanner;
 import riiraty.cipher.MyRSA;
 
 /**
- * Command Line Interface.
+ * Command Line Interface of the cryptosystem.
  */
 public class CipherUi {
 
@@ -17,6 +17,7 @@ public class CipherUi {
     }
 
     public void start() {
+        // valid values, but key too short to crypt properly
         crypter = new MyRSA(BigInteger.valueOf(14), BigInteger.valueOf(5), BigInteger.valueOf(11));
         System.out.println("Hello agent.");
         mainMenu();
@@ -24,31 +25,33 @@ public class CipherUi {
 
     public void mainMenu() {
         while (true) {
-            System.out.println("");
+            System.out.println("--------------------------------------");
             System.out.println("Command options: ");
-            System.out.println("decrypt");
-            System.out.println("encrypt");
-            System.out.println("keygen");
-            System.out.println("help");
-            System.out.println("quit");
-            System.out.println("");
-
+            System.out.println("--------------------------------------");
+            System.out.println("[d]      - decrypt a cipher message.");
+            System.out.println("[e]      - encrypt plain text message.");
+            System.out.println("[keygen] - generate a keypair.");
+            System.out.println("[help]   - get command details.");
+            System.out.println("[quit]   - quit and close the crypter.");
+            System.out.println("--------------------------------------");
+            
+            System.out.print("Give command: ");
             String command = scanner.nextLine();
-            System.out.println("");
 
-            if (command.equals("decrypt")) {
+            if (command.equals("d")) {
                 System.out.println("--- decrypting ---");
-            } else if (command.equals("encrypt")) {
+            } else if (command.equals("e")) {
                 System.out.print("Your message: ");
                 String message = scanner.nextLine();
 
                 System.out.println("--- encrypting ---");
-                System.out.println("");
 
                 BigInteger messageAsBigInt = crypter.StringToBigInt(message);
                 BigInteger encrypted = crypter.encrypt(messageAsBigInt);
+                System.out.println("Encrypted message: " + encrypted);
 
-                System.out.println("encrypted message: " + encrypted);
+                String encryptedString = crypter.BigIntToString(encrypted);
+                System.out.println("Encrypted as String: " + encryptedString);
 
             } else if (command.equals("keygen")) {
                 System.out.println("--- generating keys ---");
@@ -59,7 +62,7 @@ public class CipherUi {
                 System.out.println("Goodbye.");
                 break;
             } else {
-                System.out.println("Give valid command.");
+                System.out.println("Not a valid command.");
             }
         }
         

@@ -16,6 +16,12 @@ public class MyRSA {
         this.d = d; // privateKey exponent
     }
 
+    /***
+     * Converts user input of plain text to String of ASCII-character values
+     * Then converts formed String to BigInteger
+     * @param messageAsString user input
+     * @return ciphered message
+     */
     public BigInteger StringToBigInt(String messageAsString) {
         String cipherString = "";
         int i = 0;
@@ -28,16 +34,32 @@ public class MyRSA {
         return ciphered;
     }
 
+    /**
+     * Encrypts the BigInteger form of message
+     * @param messageAsBigInteger
+     * @return encrypted cipher
+     */
     public BigInteger encrypt(BigInteger messageAsBigInteger) {
         BigInteger encrypted = messageAsBigInteger.modPow(e, modulus);
         return encrypted;
     }
 
+    /**
+     * Decrypts the BigInteger form of encrypted message
+     * @param cipherMessageAsBigInteger
+     * @return decrypted cipher
+     */
     public BigInteger decrypt(BigInteger cipherMessageAsBigInteger) {
         BigInteger decrypted = cipherMessageAsBigInteger.modPow(d, modulus);
         return decrypted;
     }
 
+    /**
+     * Converts BigInteger.toString() to a String of 
+     * corresponding ASCII-characters
+     * @param cipherMessageAsBigInt
+     * @return
+     */
     public String BigIntToString(BigInteger cipherMessageAsBigInt) {
         String cipherAsString = cipherMessageAsBigInt.toString();
         String plainText = "";
