@@ -19,4 +19,4 @@ Date | Time (h) | Progress
 13.5.| 4,5 | Reading course requirements, course start lecture, researching possible topics, narrowing options down to cryptography or regex
 14.5.| 6 | Creating a repository, organizing the documentation, discussing my topic options with an instructor, researching the two options further
 15.5.| 5,5 | Deciding the topic, writing the Requirements document, creating the Gradle project, adding some configurations and testing them
-total| 16
+Total:| 16
