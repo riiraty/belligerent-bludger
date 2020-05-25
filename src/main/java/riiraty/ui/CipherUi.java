@@ -18,8 +18,10 @@ public class CipherUi {
     }
 
     public void start() {
-        // valid values, but key too short to crypt properly
-        crypter = new MyRSA(BigInteger.valueOf(2019302167), BigInteger.valueOf(1004236379), BigInteger.valueOf(253632059));
+        // Generated with own keygen, keysize 32
+        crypter = new MyRSA(BigInteger.valueOf(2019302167), //modulus
+            BigInteger.valueOf(1004236379), // e 
+            BigInteger.valueOf(253632059)); // d
         System.out.println("Hello agent.");
         mainMenu();
     }
