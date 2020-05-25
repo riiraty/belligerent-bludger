@@ -16,6 +16,10 @@ public class MyRSA {
         this.d = d; // privateKey exponent
     }
 
+    public MyRSA() {
+        // for testing
+    }
+
     /***
      * Converts user input of plain text to String of ASCII-character values
      * Then converts formed String to BigInteger
@@ -64,7 +68,7 @@ public class MyRSA {
         String cipherAsString = cipherMessageAsBigInt.toString();
         String plainText = "";
         int i = 0;
-        while (i+2 < cipherAsString.length()) {
+        while (i+2 <= cipherAsString.length()) {
             int valueOfChar = Integer.parseInt(cipherAsString.substring(i, i+2));
             char character = (char) valueOfChar;
             plainText = plainText + character;
