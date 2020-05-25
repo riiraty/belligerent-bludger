@@ -3,6 +3,7 @@ package riiraty.ui;
 import java.math.BigInteger;
 import java.util.Scanner;
 import riiraty.cipher.MyRSA;
+import riiraty.keys.KeyGenerator;
 
 /**
  * Command Line Interface of the cryptosystem.
@@ -18,7 +19,7 @@ public class CipherUi {
 
     public void start() {
         // valid values, but key too short to crypt properly
-        crypter = new MyRSA(BigInteger.valueOf(14), BigInteger.valueOf(5), BigInteger.valueOf(11));
+        crypter = new MyRSA(BigInteger.valueOf(2019302167), BigInteger.valueOf(1004236379), BigInteger.valueOf(253632059));
         System.out.println("Hello agent.");
         mainMenu();
     }
@@ -41,6 +42,7 @@ public class CipherUi {
             if (command.equals("d")) {
                 System.out.println("--- decrypting ---");
             } else if (command.equals("e")) {
+                System.out.println("Only uppercase allowed.");
                 System.out.print("Your message: ");
                 String message = scanner.nextLine();
 
@@ -53,8 +55,15 @@ public class CipherUi {
                 String encryptedString = crypter.BigIntToString(encrypted);
                 System.out.println("Encrypted as String: " + encryptedString);
 
+                BigInteger decrypted = crypter.decrypt(encrypted);
+                System.out.println("Decrypted message: " + decrypted);
+
+                String decryptedString = crypter.BigIntToString(decrypted);
+                System.out.println("Decrypted as String: " + decryptedString);
+
             } else if (command.equals("keygen")) {
                 System.out.println("--- generating keys ---");
+                new KeyGenerator();
             } else if (command.equals("help")) {
                 System.out.println("--- help ---");
             } else if (command.equals("quit")) {
