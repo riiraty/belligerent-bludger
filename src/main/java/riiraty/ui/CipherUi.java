@@ -3,7 +3,8 @@ package riiraty.ui;
 import java.math.BigInteger;
 import java.util.Scanner;
 import riiraty.cipher.MyRSA;
-import riiraty.keys.KeyGenerator;
+import riiraty.keys.KeyPair;
+import riiraty.keys.KeyPairGenerator;
 
 /**
  * Command Line Interface of the cryptosystem.
@@ -18,10 +19,11 @@ public class CipherUi {
     }
 
     public void start() {
-        // Generated with own keygen, keysize 32
-        crypter = new MyRSA(BigInteger.valueOf(2019302167), //modulus
-            BigInteger.valueOf(1004236379), // e 
-            BigInteger.valueOf(253632059)); // d
+        // // Generated with riiraty.keys.KeyPairGenerator, keysize 32 bit
+        KeyPair keyPair = new KeyPair(BigInteger.valueOf(2019302167), //modulus
+                                    BigInteger.valueOf(1004236379), // e 
+                                    BigInteger.valueOf(253632059)); // d
+        crypter = new MyRSA(keyPair);
         System.out.println("Hello agent.");
         mainMenu();
     }
@@ -65,7 +67,7 @@ public class CipherUi {
 
             } else if (command.equals("keygen")) {
                 System.out.println("--- generating keys ---");
-                new KeyGenerator();
+                new KeyPairGenerator();
             } else if (command.equals("help")) {
                 System.out.println("--- help ---");
             } else if (command.equals("quit")) {

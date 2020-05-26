@@ -1,19 +1,16 @@
 package riiraty.cipher;
 
 import java.math.BigInteger;
+import riiraty.keys.KeyPair;
 
 /**
  * Tool for crypting messages with RSA-keys
  */
 public class MyRSA {
-    private BigInteger modulus; // N = pq, where p,q are primes
-    private BigInteger e; // 1 < e < phi(N), where phi(N) = (p-1)(q-1)
-    private BigInteger d; // where de(mod(phi)) = 1
+    private KeyPair keyPair;
 
-    public MyRSA(BigInteger modulus, BigInteger e, BigInteger d) {
-        this.modulus = modulus;
-        this.e = e; // publicKey exponent
-        this.d = d; // privateKey exponent
+    public MyRSA(KeyPair keyPair) {
+        this.keyPair = keyPair;
     }
 
     public MyRSA() {
@@ -44,7 +41,8 @@ public class MyRSA {
      * @return encrypted cipher
      */
     public BigInteger encrypt(BigInteger messageAsBigInteger) {
-        BigInteger encrypted = messageAsBigInteger.modPow(e, modulus);
+        BigInteger encrypted = messageAsBigInteger.modPow(keyPair.getPublic(), 
+                                                        keyPair.getModulus());
         return encrypted;
     }
 
@@ -54,7 +52,8 @@ public class MyRSA {
      * @return decrypted cipher
      */
     public BigInteger decrypt(BigInteger cipherMessageAsBigInteger) {
-        BigInteger decrypted = cipherMessageAsBigInteger.modPow(d, modulus);
+        BigInteger decrypted = cipherMessageAsBigInteger.modPow(keyPair.getPrivate(), 
+                                                                keyPair.getModulus());
         return decrypted;
     }
 

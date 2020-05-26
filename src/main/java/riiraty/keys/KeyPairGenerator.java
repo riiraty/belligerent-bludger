@@ -3,22 +3,22 @@ package riiraty.keys;
 import java.math.BigInteger;
 import java.util.Random;
 
-
 /**
  * Computes the needes variables for the keys.
+ * n = modulus
+ * e = public exponent
+ * d = private exponent
  */
-public class KeyGenerator {
-    private BigInteger n; // modulus
-    private BigInteger e; // public exponent
-    private BigInteger d; // private exponent
+public class KeyPairGenerator {
+    private final KeyPair keyPair;
 
-    public KeyGenerator() {
+    public KeyPairGenerator() {
         // 1. find two large primes
         BigInteger p = primeGenerator();
         BigInteger q = primeGenerator();
 
         // 2. compute n = pq
-        this.n = p.multiply(q);
+        BigInteger n = p.multiply(q);
         System.out.println("Modulus: " + n);
 
         // 3. compute phi(n) = (p-1)(q-1)
@@ -28,17 +28,29 @@ public class KeyGenerator {
 
         // 4. find e, where 1 < e < phi 
         // and e is coprime with phi: gcd = 1
-        this.e = generateE(phi);
+        BigInteger e = generateE(phi);
         System.out.println("public exponent e: " + e);
 
         // 5. compute d with e and phi
-        this.d = computeD(e, phi)[1];
+        // modular inverse: ax = 1 (mod m)
+        BigInteger d = computeD(e, phi)[1];
+        // check that d is not negative
+        if (d.min(BigInteger.ZERO).equals(d)) {
+            // adding a multiple of phi still satisfies the equation
+            d = d.add(phi);
+        } 
         System.out.println("private exponent d: " + d);
+        
+        this.keyPair = new KeyPair(n, e, d);
+    }
+
+    public KeyPair getKeys(){
+        return keyPair;
     }
 
     public BigInteger primeGenerator() {
         Random random = new Random();
-        return BigInteger.probablePrime(16, random);
+        return BigInteger.probablePrime(512, random);
     }
 
     /**
@@ -50,11 +62,23 @@ public class KeyGenerator {
      */
     public BigInteger generateE(BigInteger phi) {
         Random random = new Random();
-        BigInteger e = new BigInteger(32, random);
+        BigInteger e = new BigInteger(1024, random);
+        int i = 0;
         // do while loop so that e < phi applies
         do {
             while (e.min(phi).equals(phi)) { // while phi < e
-                e = new BigInteger(32, random); // generate new e
+                e = new BigInteger(1024, random); // generate new e
+                i++;
+                if (i > 100000) {
+                    // default if finding e takes too long
+                    // 0x10001, 4th Fermat number, is a prime
+                    return BigInteger.valueOf(65537);
+                }
+            }
+            i++;
+            if (i > 100000) {
+                // default if finding e takes too long
+                return BigInteger.valueOf(65537);
             }
         } while (!gcd(e, phi).equals(BigInteger.ONE));
 
