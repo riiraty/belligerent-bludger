@@ -53,6 +53,8 @@ public class CipherUi {
                 System.out.println("--- encrypting ---");
 
                 BigInteger messageAsBigInt = crypter.StringToBigInt(message);
+                System.out.println("Message as BigInt: " + messageAsBigInt);
+
                 BigInteger encrypted = crypter.encrypt(messageAsBigInt);
                 System.out.println("Encrypted message: " + encrypted);
 

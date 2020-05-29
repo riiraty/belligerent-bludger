@@ -55,8 +55,7 @@ public class KeyPairGenerator {
 
     /**
      * Finds an e that is coprime with phi
-     * Takes its sweet time... 
-     * Possibly infinite loop
+     * limited tries before a default value is used
      * @param phi
      * @return public exponent
      */
@@ -64,20 +63,20 @@ public class KeyPairGenerator {
         Random random = new Random();
         BigInteger e = new BigInteger(1024, random);
         int i = 0;
+        int j = 0;
         // do while loop so that e < phi applies
         do {
             while (e.min(phi).equals(phi)) { // while phi < e
                 e = new BigInteger(1024, random); // generate new e
                 i++;
-                if (i > 100000) {
-                    // default if finding e takes too long
-                    // 0x10001, 4th Fermat number, is a prime
-                    return BigInteger.valueOf(65537);
+                if (i > 100000){
+                    break;
                 }
             }
-            i++;
-            if (i > 100000) {
+            j++;
+            if (j > 100000) {
                 // default if finding e takes too long
+                // 0x10001, 4th Fermat number, is a prime
                 return BigInteger.valueOf(65537);
             }
         } while (!gcd(e, phi).equals(BigInteger.ONE));
