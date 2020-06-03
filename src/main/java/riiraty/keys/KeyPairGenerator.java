@@ -40,11 +40,14 @@ public class KeyPairGenerator {
             d = d.add(phi);
         } 
         System.out.println("private exponent d: " + d);
-        
-        this.keyPair = new KeyPair(n, e, d);
+
+        PublicKey publicKey = new PublicKey(n, e);
+        PrivateKey privateKey = new PrivateKey(n, d);
+
+        this.keyPair = new KeyPair(publicKey, privateKey);
     }
 
-    public KeyPair getKeys(){
+    public KeyPair getKeys() {
         return keyPair;
     }
 
@@ -54,9 +57,9 @@ public class KeyPairGenerator {
     }
 
     /**
-     * Finds an e that is coprime with phi
-     * limited tries before a default value is used
-     * @param phi
+     * Finds an e that is coprime with phi.
+     * Limited tries before a default value is used.
+     * @param phi is the totient function of modulus n
      * @return public exponent
      */
     public BigInteger generateE(BigInteger phi) {
@@ -69,7 +72,7 @@ public class KeyPairGenerator {
             while (e.min(phi).equals(phi)) { // while phi < e
                 e = new BigInteger(1024, random); // generate new e
                 i++;
-                if (i > 100000){
+                if (i > 100000) {
                     break;
                 }
             }
@@ -104,13 +107,13 @@ public class KeyPairGenerator {
      * @return
      */
     public BigInteger[] computeD(BigInteger d, BigInteger s) {
-    /*
-     * extended_euclid(d,s)
-          if s = 0
-              than return (d,1,0)
-          (d',s',t') <-- extended_euclid(s, d mod s)
-          return (d',t',s' - (d div s)t')
-     */
+        /*
+        * extended_euclid(d,s)
+            if s = 0
+                than return (d,1,0)
+            (d',s',t') <-- extended_euclid(s, d mod s)
+            return (d',t',s' - (d div s)t')
+        */
         if (s.equals(BigInteger.ZERO)) {
             return new BigInteger[]{d, BigInteger.ONE, BigInteger.ZERO};
         }

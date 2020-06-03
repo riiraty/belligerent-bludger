@@ -1,31 +1,23 @@
 package riiraty.keys;
 
-import java.math.BigInteger;
-
 /**
- * Implementation of RSA asymmetrical key pair
+ * Implementation of RSA asymmetrical key pair.
  */
 public class KeyPair {
-    private BigInteger n; // modulus
-    private BigInteger e; // public exponent
-    private BigInteger d; // private exponent
+    private final PublicKey publicKey;
+    private final PrivateKey privateKey;
 
-    public KeyPair(BigInteger n, BigInteger e, BigInteger d) {
-        this.n = n;
-        this.e = e;
-        this.d = d;
+    public KeyPair(PublicKey publicKey, PrivateKey privateKey) {
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
     }
 
-    public BigInteger getModulus() {
-        return n;
+    public PublicKey getPublicKey() {
+        return publicKey;
     }
 
-    public BigInteger getPublic() {
-        return e;
-    }
-
-    public BigInteger getPrivate() {
-        return d;
+    public PrivateKey getPrivateKey() {
+        return privateKey;
     }
     
 }
