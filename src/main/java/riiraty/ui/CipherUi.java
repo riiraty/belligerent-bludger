@@ -2,7 +2,7 @@ package riiraty.ui;
 
 import java.math.BigInteger;
 import java.util.Scanner;
-import riiraty.cipher.MyRSA;
+import riiraty.cipher.Crypter;
 import riiraty.keys.PublicKey;
 import riiraty.keys.PrivateKey;
 import riiraty.keys.KeyPair;
@@ -13,20 +13,20 @@ import riiraty.keys.KeyPairGenerator;
  */
 public class CipherUi {
     private final Scanner scanner;
-    private MyRSA crypter;
+    private Crypter crypter;
 
     public CipherUi(Scanner scanner) {
         this.scanner = scanner;
     }
 
     public void start() {
-        // // Generated with riiraty.keys.KeyPairGenerator, keysize 32 bit
+        // Default keypair of 32 bit keysize, makes max input 4 chars
         PublicKey publicKey = new PublicKey(BigInteger.valueOf(2019302167), 
                                             BigInteger.valueOf(1004236379));
         PrivateKey privateKey = new PrivateKey(BigInteger.valueOf(2019302167), 
                                                BigInteger.valueOf(253632059));
         KeyPair keyPair = new KeyPair(publicKey, privateKey);
-        crypter = new MyRSA(keyPair);
+        crypter = new Crypter(keyPair);
         System.out.println("Hello agent.");
         mainMenu();
     }
@@ -39,7 +39,6 @@ public class CipherUi {
             System.out.println("[d]      - decrypt a cipher message.");
             System.out.println("[e]      - encrypt plain text message.");
             System.out.println("[keygen] - generate a keypair.");
-            System.out.println("[help]   - get command details.");
             System.out.println("[quit]   - quit and close the crypter.");
             System.out.println("--------------------------------------");
             
@@ -67,8 +66,6 @@ public class CipherUi {
             } else if (command.equals("keygen")) {
                 System.out.println("--- generating keys ---");
                 new KeyPairGenerator();
-            } else if (command.equals("help")) {
-                System.out.println("--- help ---");
             } else if (command.equals("quit")) {
                 scanner.close();
                 System.out.println("Goodbye.");
