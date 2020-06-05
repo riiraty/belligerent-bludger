@@ -7,7 +7,7 @@ import riiraty.keys.KeyPair;
 /**
  * Tool for crypting messages with RSA-keys
  */
-public class MyRSA {
+public class Crypter {
     private KeyPair keyPair;
 
     /**
@@ -15,11 +15,11 @@ public class MyRSA {
      * 
      * @param keyPair
      */
-    public MyRSA(KeyPair keyPair) {
+    public Crypter(KeyPair keyPair) {
         this.keyPair = keyPair;
     }
 
-    public MyRSA() {
+    public Crypter() {
         // for testing
     }
 
@@ -43,8 +43,8 @@ public class MyRSA {
      * This method decrypts a cipher String with RSA private key.
      * Base64 decoding is used to reverse the encoding done while encrypting.
      * 
-     * @param cipher
-     * @return
+     * @param cipher encrypted message encoded with Base64
+     * @return decrypted message
      */
     public String decrypt(String cipher) {
         String decoded = decodeBase64(cipher);
@@ -60,7 +60,7 @@ public class MyRSA {
      * Converts String to BigInt.
      * 
      * @param message as String
-     * @return message as BigInt
+     * @return BigInt representation of String
      */
     public BigInteger messageToBigInt(String message) {
         byte[] bytes = message.getBytes();
@@ -73,7 +73,7 @@ public class MyRSA {
      * Converts BigInt to String.
      * 
      * @param cipher
-     * @return
+     * @return String representation of BigInt 
      */
     public String BigIntToString(BigInteger cipher) {
         byte[] bytes = cipher.toByteArray();

@@ -9,14 +9,14 @@ import riiraty.keys.PublicKey;
 import riiraty.keys.PrivateKey;
 import riiraty.keys.KeyPair;
 
-public class TestMyRSA {
+public class TestCrypter {
 
-    MyRSA crypter;
-    MyRSA keyCrypter;
+    Crypter crypter;
+    Crypter keyCrypter;
 
     @Before
     public void setUp() {
-        this.crypter = new MyRSA();
+        this.crypter = new Crypter();
 
         // // Generated with riiraty.keys.KeyPairGenerator, keysize 32 bit
         PublicKey publicKey = new PublicKey(BigInteger.valueOf(2019302167), 
@@ -24,7 +24,7 @@ public class TestMyRSA {
         PrivateKey privateKey = new PrivateKey(BigInteger.valueOf(2019302167), 
                                                BigInteger.valueOf(253632059));
         KeyPair keyPair = new KeyPair(publicKey, privateKey);
-        this.keyCrypter = new MyRSA(keyPair);
+        this.keyCrypter = new Crypter(keyPair);
     }
     
     @Test
@@ -47,7 +47,7 @@ public class TestMyRSA {
     public void encrypterReturnsCipher() {
         String encrypted = keyCrypter.encrypt("Test");
 
-        assertEquals("NDcxODgxNjA=", encrypted);   // !!!
+        assertEquals("NDcxODgxNjA=", encrypted);
     }
 
     @Test
