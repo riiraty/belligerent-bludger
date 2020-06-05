@@ -1,7 +1,7 @@
 package riiraty.keys;
 
 /**
- * Implementation of RSA asymmetrical key pair.
+ * Implementation of RSA asymmetrical keypair.
  */
 public class KeyPair {
     private final PublicKey publicKey;

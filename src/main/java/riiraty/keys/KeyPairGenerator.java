@@ -59,6 +59,8 @@ public class KeyPairGenerator {
     /**
      * Finds an e that is coprime with phi.
      * Limited tries before a default value is used.
+     * 65537 0x10001, 4th Fermat number, is a prime
+     * 
      * @param phi is the totient function of modulus n
      * @return public exponent
      */
@@ -72,14 +74,12 @@ public class KeyPairGenerator {
             while (e.min(phi).equals(phi)) { // while phi < e
                 e = new BigInteger(1024, random); // generate new e
                 i++;
-                if (i > 100000) {
-                    break;
+                if (i > 1000000) {
+                    return BigInteger.valueOf(65537);
                 }
             }
             j++;
             if (j > 100000) {
-                // default if finding e takes too long
-                // 0x10001, 4th Fermat number, is a prime
                 return BigInteger.valueOf(65537);
             }
         } while (!gcd(e, phi).equals(BigInteger.ONE));
