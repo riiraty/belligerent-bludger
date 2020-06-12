@@ -39,7 +39,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['riiraty/Main*', 'riiraty/ui/*'])
+            fileTree(dir: it, exclude: ['riiraty/Main*', 'riiraty/ui/*', 'riiraty/util/Tester*'])
         }))
     }
 }
