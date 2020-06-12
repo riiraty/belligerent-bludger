@@ -6,9 +6,9 @@
 
 RSA cryption requires a pair of keys:
 
-* *PublicKey* consists of modulus *n* and public exponent *e*  and is used to encrypt messages
+* <code>PublicKey</code> consists of modulus *n* and public exponent *e*  and is used to encrypt messages
 
-* *PrivateKey* consists of modulus *n* and private exponent *d* and is used to decrypt messages
+* <code>PrivateKey</code> consists of modulus *n* and private exponent *d* and is used to decrypt messages
 
 Needed variables for the keys are computed as follows:
 
@@ -57,35 +57,41 @@ Needed variables for the keys are computed as follows:
 
 ### RSA crypter
 
-A generated asymmetrical *KeyPair* is used for RSA cryption
+A generated asymmetrical <code>KeyPair</code> is used for RSA cryption
 
 ##### Encryption
 
 * User input is plain text
 
-* The message is given as *String* and converted into *BigInteger* representation of it
+* The message is given as <code>String</code> and converted into <code>BigInteger</code> representation of it
 
-* Encryption is done using *PublicKey* :
+* Encryption is done using <code>PublicKey</code> :
 
-    *c = m<sup>e</sup> mod(n)* , where *m* is the message as *BigInteger*
+    *c = m<sup>e</sup>* mod *(n)* , where *m* is the message as <code>BigInteger</code>
 
-* Formed cipher is encoded with *Base64* to make it printable and readable for the user
+* Formed cipher is encoded with <code>Base64</code> to make it printable and readable for the user
 
 ##### Decryption
 
 * User input is plain text
 
-* The cipher is decoded with *Base64* and the resulting *String* constructs a *BigInteger*
+* The cipher is decoded with <code>Base64</code> and the resulting <code>String</code> constructs a <code>BigInteger</code>
 
-* Decryption is done with *PrivateKey* :
+* Decryption is done with <code>PrivateKey</code> :
 
-    *m = c<sup>d</sup> mod(n)* , where *c* is the cipher as *BigInteger*
+    *m = c<sup>d</sup>* mod *(n)* , where *c* is the cipher as <code>BigInteger</code>
 
-* The resulting *BigInteger* is turned in to *String* representation, and this is the original message
+* The resulting <code>BigInteger</code> is turned in to <code>String</code> representation, and this is the original message
 
 ### Math
 
-##### BigInteger
+##### BigInt
+
+Holds large numbers by storing digits in <code>int[]</code>. 
+
+Signum of the number is stored in <code>int</code>: 1 for positives, 0 for zero and -1 for negatives. 
+
+Has <code>static</code> constants for 1 and 0.
 
 ##### Random
 
