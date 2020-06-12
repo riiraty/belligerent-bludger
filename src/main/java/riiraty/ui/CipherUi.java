@@ -2,11 +2,13 @@ package riiraty.ui;
 
 import java.math.BigInteger;
 import java.util.Scanner;
+
 import riiraty.cipher.Crypter;
 import riiraty.keys.PublicKey;
 import riiraty.keys.PrivateKey;
 import riiraty.keys.KeyPair;
 import riiraty.keys.KeyPairGenerator;
+import riiraty.util.Tester;
 
 /**
  * Command Line Interface of the cryptosystem.
@@ -72,6 +74,11 @@ public class CipherUi {
                 break;
             } else if (command.equals("test")) {
                 test();
+                break;
+            } else if ( command.equals("tester")) {
+                Tester tester = new Tester();
+                tester.run();
+                System.out.println(tester.toString());
                 break;
             } else {
                 System.out.println("Not a valid command.");
