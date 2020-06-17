@@ -45,14 +45,14 @@ public class TestCrypter {
 
     @Test 
     public void encrypterReturnsCipher() {
-        String encrypted = keyCrypter.encrypt("Test");
+        String encrypted = keyCrypter.encrypt("Test", "MjAxOTMwMjE2NzoxMDA0MjM2Mzc5");
 
         assertEquals("NDcxODgxNjA=", encrypted);
     }
 
     @Test
     public void decrypterReturnsOriginalMessage() {
-        String decrypted = keyCrypter.decrypt("NDcxODgxNjA=");
+        String decrypted = keyCrypter.decrypt("NDcxODgxNjA=", "MjAxOTMwMjE2NzoyNTM2MzIwNTk=");
 
         assertEquals("Test", decrypted);;
     }

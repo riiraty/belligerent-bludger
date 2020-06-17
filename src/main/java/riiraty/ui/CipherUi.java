@@ -22,7 +22,7 @@ public class CipherUi {
     }
 
     public void start() {
-        // Default keypair of 32 bit keysize, makes max input 4 chars
+        // // Default keypair of 32 bit keysize, makes max input 4 chars
         // PublicKey publicKey = new PublicKey(BigInteger.valueOf(2019302167), 
         //                                     BigInteger.valueOf(1004236379));
         // PrivateKey privateKey = new PrivateKey(BigInteger.valueOf(2019302167), 
@@ -40,7 +40,7 @@ public class CipherUi {
     public void mainMenu() {
         while (true) {
             System.out.println("--------------------------------------");
-            System.out.println("Command options: ");
+            System.out.println("\u001b[1mCommand options:\u001b[0m ");
             System.out.println("--------------------------------------");
             System.out.println("[d]      - decrypt a cipher message.");
             System.out.println("[e]      - encrypt plain text message.");
