@@ -12,4 +12,8 @@ public class PublicKey extends Key {
         super(n, e);
     }
 
+    public PublicKey(String key) {
+        super(key);
+    }
+
 }

@@ -1,14 +1,14 @@
 package riiraty.cipher;
 
 import java.math.BigInteger;
-import riiraty.keys.KeyPair;
+import riiraty.keys.*;
 import riiraty.util.Base64Tool;
 
 /**
  * Tool for crypting messages with RSA-keys
  */
 public class Crypter {
-    private KeyPair keyPair;
+    private KeyPair defaultKeyPair;
 
     /**
      * Constructor sets the KeyPair used for cryption.
@@ -16,7 +16,7 @@ public class Crypter {
      * @param keyPair
      */
     public Crypter(KeyPair keyPair) {
-        this.keyPair = keyPair;
+        this.defaultKeyPair = keyPair;
     }
 
     public Crypter() {
@@ -24,11 +24,7 @@ public class Crypter {
     }
 
     public void setKeyPair(KeyPair keyPair) {
-        this.keyPair = keyPair;
-    }
-
-    public String getEncodedKeyPair() {
-        return keyPair.toString();
+        this.defaultKeyPair = keyPair;
     }
 
     /**
@@ -38,10 +34,19 @@ public class Crypter {
      * @param msg as String
      * @return ciphered message encoded to Base64
      */
-    public String encrypt(String msg) {
+    public String encrypt(String msg, String key) {
         BigInteger msgBigInt = messageToBigInt(msg);
-        BigInteger encrypted = msgBigInt.modPow(keyPair.getPublicKey().getExponent(), 
-                                                keyPair.getPublicKey().getModulus());
+        BigInteger encrypted;
+
+        // if no key was given, use default
+        if (key.equals("")) {
+            encrypted = msgBigInt.modPow(defaultKeyPair.getPublicKey().getExponent(), 
+                                         defaultKeyPair.getPublicKey().getModulus());
+        } else {
+            PublicKey publicKey = new PublicKey(key);
+            encrypted =  msgBigInt.modPow(publicKey.getExponent(), publicKey.getModulus());
+        }
+
         String cipher = Base64Tool.encode(encrypted.toString());
 
         return cipher;
@@ -54,11 +59,19 @@ public class Crypter {
      * @param cipher encrypted message encoded with Base64
      * @return decrypted message
      */
-    public String decrypt(String cipher) {
+    public String decrypt(String cipher, String key) {
         String decoded = Base64Tool.decode(cipher);
         BigInteger asBigInt = new BigInteger(decoded);
-        BigInteger decrypted = asBigInt.modPow(keyPair.getPrivateKey().getExponent(), 
-                                               keyPair.getPrivateKey().getModulus());
+        BigInteger decrypted;
+
+        // if no key was given, use default
+        if (key.equals("")) {
+            decrypted = asBigInt.modPow(defaultKeyPair.getPrivateKey().getExponent(), 
+                                        defaultKeyPair.getPrivateKey().getModulus());
+        } else {
+            PrivateKey privateKey = new PrivateKey(key);
+            decrypted = asBigInt.modPow(privateKey.getExponent(), privateKey.getModulus());
+        }
         String message = BigIntToString(decrypted);
 
         return message;

@@ -23,14 +23,17 @@ public class CipherUi {
 
     public void start() {
         // Default keypair of 32 bit keysize, makes max input 4 chars
-        PublicKey publicKey = new PublicKey(BigInteger.valueOf(2019302167), 
-                                            BigInteger.valueOf(1004236379));
-        PrivateKey privateKey = new PrivateKey(BigInteger.valueOf(2019302167), 
-                                               BigInteger.valueOf(253632059));
+        // PublicKey publicKey = new PublicKey(BigInteger.valueOf(2019302167), 
+        //                                     BigInteger.valueOf(1004236379));
+        // PrivateKey privateKey = new PrivateKey(BigInteger.valueOf(2019302167), 
+        //                                        BigInteger.valueOf(253632059));
+
+        // Default key pair of 1024 bit size, makes max input 128 chars
+        PublicKey publicKey = new PublicKey("MTA3OTYzNjUwMDU3ODc5NDUzMzA4NTQyOTgyMjcwMjIzODMyNjIxOTg3ODcwMzI2NDc0NTAzNjM0NTQzMDExMzQwNDE5NjI1MjUyNzM0OTIyNDMzNjIzMDk0MDEwNjk5NjU1NTQzMTU5NTMyMjAzNjc4MTE5OTQ2ODM2ODAwODg3NTgwNDU5MzkwODY5OTMzMjU5MjIxMDAzNTI5ODY3NDM0MzMzMjAzMjQyMjYwMjAxODczNjE2MDEwNDA5NzkwMDA4MjgxMjAyMzAwMDI1OTQ3MjYzMjQ4MzQzNDA5MDM3MjQyNjg1MjU0MDQwNDE0NzQ5MjY1MDY3MjgyMDEzMjM1MDIyNDUyODc0MzcxOTYyODM4MDY4NDUwMzEzMDQwNDMwODEwOTc4OTgzNDUxMzI4Mzg5OjE5MzkyMzQ5ODk1MDEwOTk3NDk0MjkwNTEzMjA4MzA4NjQzNzYzMTIzNjQwNDM3MzgyMTk3MTg4NTM2MDY0ODA3MzM2MzIwODM1NDM2ODMyODM2NDEwNTIzMTU3MjMwOTgzNjc0NDQwMDI0NDM5OTIwOTgxMjQ5NjIwNDM1MTIzMDE0NTEzMTU2NjU2OTkzOTQxMDQxMzA0ODMzODAyNTU5NjgzODI4Mzk2NTAyNjA0NjA1MTk0MzQ3NjE0NTczOTg1MzY3MTA0NDU2NjA3ODE3MzkwNTcyNjcyODAyODYwNTM4Mzk1MzgwOTI3MTE4Njc1OTc3NjY0Mzk0MTg2OTY4NDQyNTk0Njg0MDA3MTQ3Njc4MzUyODAyOTQ1MTU3NzQxNDgxODc5MDUzNTU0MTY0ODQx");
+        PrivateKey privateKey = new PrivateKey("MTA3OTYzNjUwMDU3ODc5NDUzMzA4NTQyOTgyMjcwMjIzODMyNjIxOTg3ODcwMzI2NDc0NTAzNjM0NTQzMDExMzQwNDE5NjI1MjUyNzM0OTIyNDMzNjIzMDk0MDEwNjk5NjU1NTQzMTU5NTMyMjAzNjc4MTE5OTQ2ODM2ODAwODg3NTgwNDU5MzkwODY5OTMzMjU5MjIxMDAzNTI5ODY3NDM0MzMzMjAzMjQyMjYwMjAxODczNjE2MDEwNDA5NzkwMDA4MjgxMjAyMzAwMDI1OTQ3MjYzMjQ4MzQzNDA5MDM3MjQyNjg1MjU0MDQwNDE0NzQ5MjY1MDY3MjgyMDEzMjM1MDIyNDUyODc0MzcxOTYyODM4MDY4NDUwMzEzMDQwNDMwODEwOTc4OTgzNDUxMzI4Mzg5Ojg4NjY5MTUzOTY3MzIzNDY0MDUxOTcwNzEzMTY3NTc1NjUxMDUyMTAwMTgyMjM1MDg3MzU0NTE1MTUxODczMzQ0MjYyNzM0OTA4NjE5Mzk4NTIzOTg5MTczMjY5ODM2MzQ5ODgyNzYxNjQwOTQzNTQ5ODQ5MjU1NTE5MDQxMDEzNTIwODUyNzM4ODMxNjcxMzM5NTcyMDc4OTM3MTM5MDc3Njc1NzY4NDExNDY0Mzc1MzQzNjU2Mzc4MjUzNDg5MjkyNzk0OTYzODYzNjkxMDYwOTk3MzE5NjgwNzc1MDk1MjE4MjE0MDc0NzU5NDUyOTEwNTk2MTkzNzkxNjQxOTc5NDYyMzUyMDEyODUyNDk5MTYwMDUwNzk0MDYyNDQxMTM0OTM0NTY3NDk0Nzg3Mzg2Mzkz");
         KeyPair keyPair = new KeyPair(publicKey, privateKey);
         crypter = new Crypter(keyPair);
         System.out.println("Hello agent.");
-        System.out.println(keyPair.toString());
         mainMenu();
     }
 
@@ -49,26 +52,11 @@ public class CipherUi {
             String command = scanner.nextLine();
 
             if (command.equals("d")) {
-                System.out.print("Give cipher: ");
-                String cipher = scanner.nextLine();
-
-                System.out.println("--- decrypting ---");
-
-                String decrypted = crypter.decrypt(cipher);
-                System.out.println("Ciphered message: " + decrypted);
-
+                decrypt();
             } else if (command.equals("e")) {
-                System.out.print("Your message: ");
-                String message = scanner.nextLine();
-
-                System.out.println("--- encrypting ---");
-
-                String cipher = crypter.encrypt(message);
-                System.out.println("Ciphered message: " + cipher);
-
+                encrypt();
             } else if (command.equals("keygen")) {
-                System.out.println("--- generating keys ---");
-                new KeyPairGenerator();
+                keygen();
             } else if (command.equals("quit")) {
                 scanner.close();
                 System.out.println("Goodbye.");
@@ -82,10 +70,41 @@ public class CipherUi {
                 System.out.println(tester.toString());
                 break;
             } else {
-                System.out.println("Not a valid command.");
+                System.out.println("---------\u001b[31;1mNot a valid command.\u001b[0m---------");
             }
         }
         
+    }
+
+    public void decrypt() {
+        System.out.print("Give cipher: ");
+        String cipher = scanner.nextLine();
+
+        System.out.print("Give key (ENTER for default): ");
+        String key = scanner.nextLine();
+
+        String decrypted = crypter.decrypt(cipher, key);
+
+        System.out.println("----------------decrypting----------------");
+        System.out.println("Original message: " + decrypted);
+    }
+
+    public void encrypt() {
+        System.out.print("Your message: ");
+        String message = scanner.nextLine();
+
+        System.out.print("Give key (ENTER for default): ");
+        String key = scanner.nextLine();
+
+        String cipher = crypter.encrypt(message, key);
+
+        System.out.println("----------------encrypting----------------");    
+        System.out.println("Ciphered message: " + cipher);
+    }
+
+    public void keygen() {
+        System.out.println("-------------generating keys--------------");        
+        new KeyPairGenerator();
     }
 
     // secret command for manual testing
@@ -99,11 +118,11 @@ public class CipherUi {
         BigInteger encrypted = bigI.modPow(BigInteger.valueOf(1004236379), 
                                            BigInteger.valueOf(2019302167));
         System.out.println("Encrypted BigInt: " + encrypted);
-        String cipher = crypter.encrypt(message);
+        String cipher = crypter.encrypt(message, "");
         System.out.println("Encrypted with crypter: " + cipher);
 
         System.out.println("----Decryption------------------------");
-        String decrypted = crypter.decrypt(cipher);
+        String decrypted = crypter.decrypt(cipher, "");
         System.out.println("Decrypted with crypter: " + decrypted);
 
         System.out.println("----FIN-------------------------------");

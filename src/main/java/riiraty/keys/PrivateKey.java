@@ -12,4 +12,7 @@ public class PrivateKey extends Key {
         super(n, d);
     }
     
+    public PrivateKey(String key) {
+        super(key);
+    }
 }
