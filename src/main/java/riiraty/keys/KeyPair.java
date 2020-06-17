@@ -19,5 +19,16 @@ public class KeyPair {
     public PrivateKey getPrivateKey() {
         return privateKey;
     }
+
+    @Override
+    public String toString() {
+        String pub = getPublicKey().toString();
+        String key = getPrivateKey().toString();
+
+        String keyPairString = "PUBLIC KEY: " + pub + "\nPRIVATE KEY: " + key + 
+                               "\n***  \u001b[31;1mNever share your private key\u001b[0m  ***";
+
+        return keyPairString;
+    }
     
 }

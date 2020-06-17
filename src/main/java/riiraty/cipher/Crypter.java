@@ -1,8 +1,8 @@
 package riiraty.cipher;
 
 import java.math.BigInteger;
-import java.util.Base64;
 import riiraty.keys.KeyPair;
+import riiraty.util.Base64Tool;
 
 /**
  * Tool for crypting messages with RSA-keys
@@ -23,6 +23,14 @@ public class Crypter {
         // for testing
     }
 
+    public void setKeyPair(KeyPair keyPair) {
+        this.keyPair = keyPair;
+    }
+
+    public String getEncodedKeyPair() {
+        return keyPair.toString();
+    }
+
     /**
      * This method encrypts a String with RSA public key.
      * Base64 encoding is used for the ciphered BigInt.
@@ -32,9 +40,9 @@ public class Crypter {
      */
     public String encrypt(String msg) {
         BigInteger msgBigInt = messageToBigInt(msg);
-        BigInteger encrypted = msgBigInt.modPow(keyPair.getPublicKey().getPublicExponent(), 
+        BigInteger encrypted = msgBigInt.modPow(keyPair.getPublicKey().getExponent(), 
                                                 keyPair.getPublicKey().getModulus());
-        String cipher = encodeBase64(encrypted.toString());
+        String cipher = Base64Tool.encode(encrypted.toString());
 
         return cipher;
     }
@@ -47,9 +55,9 @@ public class Crypter {
      * @return decrypted message
      */
     public String decrypt(String cipher) {
-        String decoded = decodeBase64(cipher);
+        String decoded = Base64Tool.decode(cipher);
         BigInteger asBigInt = new BigInteger(decoded);
-        BigInteger decrypted = asBigInt.modPow(keyPair.getPrivateKey().getPrivateExponent(), 
+        BigInteger decrypted = asBigInt.modPow(keyPair.getPrivateKey().getExponent(), 
                                                keyPair.getPrivateKey().getModulus());
         String message = BigIntToString(decrypted);
 
@@ -80,31 +88,6 @@ public class Crypter {
         String msgString = new String(bytes);
 
         return msgString;
-    }
-
-    /**
-     * Encodes String with Base64.
-     * 
-     * @param arg 
-     * @return
-     */
-    public String encodeBase64(String arg) {
-        String encoded = Base64.getEncoder().encodeToString(arg.getBytes());
-
-        return encoded;
-    }
-
-    /**
-     * Decodes String with Base64.
-     * 
-     * @param arg
-     * @return
-     */
-    public String decodeBase64(String arg) {
-        byte[] bytes = Base64.getDecoder().decode(arg);
-        String decoded = new String(bytes);
-
-        return decoded;
     }
     
 }

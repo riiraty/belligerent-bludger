@@ -4,22 +4,12 @@ import java.math.BigInteger;
 
 /**
  * Implementation for RSA public key.
+ * Is used to encrypt messages.
  */
-public class PublicKey {
-    private final BigInteger n;
-    private final BigInteger e;
-    
+public class PublicKey extends Key {
+
     public PublicKey(BigInteger n, BigInteger e) {
-        this.n = n;
-        this.e = e;
-    }
-
-    public BigInteger getModulus() {
-        return n;
-    }
-
-    public BigInteger getPublicExponent() {
-        return e;
+        super(n, e);
     }
 
 }

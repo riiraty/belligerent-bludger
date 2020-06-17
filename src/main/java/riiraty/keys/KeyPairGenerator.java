@@ -45,6 +45,7 @@ public class KeyPairGenerator {
         PrivateKey privateKey = new PrivateKey(n, d);
 
         this.keyPair = new KeyPair(publicKey, privateKey);
+        System.out.println(keyPair.toString());
     }
 
     public KeyPair getKeys() {

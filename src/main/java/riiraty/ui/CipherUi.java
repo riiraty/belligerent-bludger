@@ -30,6 +30,7 @@ public class CipherUi {
         KeyPair keyPair = new KeyPair(publicKey, privateKey);
         crypter = new Crypter(keyPair);
         System.out.println("Hello agent.");
+        System.out.println(keyPair.toString());
         mainMenu();
     }
 
@@ -91,43 +92,17 @@ public class CipherUi {
     public void test() {
         System.out.println("----TEST------------------------------");
         String message = "Test";
-
-        System.out.println("----Encryption------------------------");
         System.out.println("Original message: " + message);
+        System.out.println("----Encryption------------------------");
         BigInteger bigI = crypter.messageToBigInt(message);
         System.out.println("Message as BigInt: " + bigI);
-
         BigInteger encrypted = bigI.modPow(BigInteger.valueOf(1004236379), 
                                            BigInteger.valueOf(2019302167));
         System.out.println("Encrypted BigInt: " + encrypted);
-
-        String encoded = crypter.encodeBase64(encrypted.toString());
-        System.out.println("Encoded to String: " + encoded);
-
-        System.out.println("--------------------------------------");
-
         String cipher = crypter.encrypt(message);
         System.out.println("Encrypted with crypter: " + cipher);
 
         System.out.println("----Decryption------------------------");
-
-        System.out.println("Cipher to decrypt: " + cipher);
-
-        String decoded = crypter.decodeBase64(cipher);
-        System.out.println("Decoded cipher as String: " + decoded);
-
-        BigInteger asBigInt = new BigInteger(decoded);
-        System.out.println("String to BigInt: " + asBigInt);
-
-        BigInteger decryptedBigInt = asBigInt.modPow(BigInteger.valueOf(253632059), 
-                                               BigInteger.valueOf(2019302167));
-        System.out.println("Decrypted as BigInt: " + decryptedBigInt);
-
-        String decryptedCipher = crypter.BigIntToString(decryptedBigInt);
-        System.out.println("Decrypted as String: " + decryptedCipher);
-
-        System.out.println("--------------------------------------");
-
         String decrypted = crypter.decrypt(cipher);
         System.out.println("Decrypted with crypter: " + decrypted);
 
