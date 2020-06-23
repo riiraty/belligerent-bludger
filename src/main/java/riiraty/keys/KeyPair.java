@@ -25,7 +25,7 @@ public class KeyPair {
         String pub = getPublicKey().toString();
         String key = getPrivateKey().toString();
 
-        String keyPairString = "PUBLIC KEY: " + pub + "\nPRIVATE KEY: " + key + 
+        String keyPairString = "\u001b[1mPUBLIC KEY: \u001b[0m" + pub + "\n\u001b[1mPRIVATE KEY: \u001b[0m" + key + 
                                "\n***  \u001b[31;1mNever share your private key\u001b[0m  ***";
 
         return keyPairString;

@@ -1,6 +1,5 @@
 package riiraty.ui;
 
-import java.math.BigInteger;
 import java.util.Scanner;
 
 import riiraty.cipher.Crypter;
@@ -32,42 +31,49 @@ public class CipherUi {
     }
 
     public void mainMenu() {
-        while (true) {
-            System.out.println("--------------------------------------");
-            System.out.println("\u001b[1mCommand options:\u001b[0m ");
-            System.out.println("--------------------------------------");
-            System.out.println("[d]      - decrypt a cipher message.");
-            System.out.println("[e]      - encrypt plain text message.");
-            System.out.println("[keygen] - generate a keypair.");
-            System.out.println("[quit]   - quit and close the crypter.");
-            System.out.println("--------------------------------------");
-            
+        boolean run = true;
+        
+        while (run) {
+            info();
             System.out.print("Give command: ");
             String command = scanner.nextLine();
 
-            if (command.equals("d")) {
-                decrypt();
-            } else if (command.equals("e")) {
-                encrypt();
-            } else if (command.equals("keygen")) {
-                keygen();
-            } else if (command.equals("quit")) {
-                scanner.close();
-                System.out.println("Goodbye.");
-                break;
-            } else if (command.equals("test")) {
-                test();
-                break;
-            } else if ( command.equals("tester")) {
-                Tester tester = new Tester();
-                tester.run();
-                System.out.println(tester.toString());
-                break;
-            } else {
-                System.out.println("---------\u001b[31;1mNot a valid command.\u001b[0m---------");
+            switch(command) {
+                case "d":
+                    decrypt();
+                    break;
+                case "e":
+                    encrypt();
+                    break;
+                case "keygen":
+                    keygen();
+                    break;
+                case "quit":
+                    run = false;
+                    break;
+                case "test":
+                    performanceTest();
+                    break;
+                default:
+                    System.out.println("---------\u001b[31;1mNot a valid command.\u001b[0m---------");
+                    break;
             }
+
         }
-        
+
+        scanner.close();
+        System.out.println("Goodbye.");   
+    }
+
+    public void info() {
+        System.out.println("--------------------------------------");
+        System.out.println("\u001b[1mCommand options:\u001b[0m ");
+        System.out.println("[d]      - decrypt a cipher message.");
+        System.out.println("[e]      - encrypt plain text message.");
+        System.out.println("[keygen] - generate a keypair.");
+        System.out.println("[quit]   - quit and close the crypter.");
+        System.out.println("[test]   - run performance test.");
+        System.out.println("--------------------------------------");
     }
 
     public void decrypt() {
@@ -78,9 +84,9 @@ public class CipherUi {
         String key = scanner.nextLine();
 
         try {
-            String decrypted = crypter.decrypt(cipher, key);
+            String decrypted = crypter.decrypt(cipher.trim(), key);
             System.out.println("--------------\u001b[32mdecrypting\u001b[0m--------------");
-            System.out.println("Original message: " + decrypted);
+            System.out.println("\u001b[1mOriginal message: \u001b[0m" + decrypted);
         } catch (Exception e) {
             System.out.println("---------\u001b[31;1mSomething went wrong\u001b[0m---------");
         }
@@ -97,7 +103,7 @@ public class CipherUi {
         try {
             String cipher = crypter.encrypt(message, key);
             System.out.println("--------------\u001b[32mencrypting\u001b[0m-------------");    
-            System.out.println("Ciphered message: " + cipher);
+            System.out.println("\u001b[1mCiphered message: \u001b[0m" + cipher);
         } catch (Exception e) {
             System.out.println("---------\u001b[31;1mSomething went wrong\u001b[0m---------");
         }
@@ -109,24 +115,10 @@ public class CipherUi {
         new KeyPairGenerator();
     }
 
-    // secret command for manual testing
-    public void test() {
-        System.out.println("----TEST------------------------------");
-        String message = "Test";
-        System.out.println("Original message: " + message);
-        System.out.println("----Encryption------------------------");
-        BigInteger bigI = crypter.messageToBigInt(message);
-        System.out.println("Message as BigInt: " + bigI);
-        BigInteger encrypted = bigI.modPow(BigInteger.valueOf(1004236379), 
-                                           BigInteger.valueOf(2019302167));
-        System.out.println("Encrypted BigInt: " + encrypted);
-        String cipher = crypter.encrypt(message, "");
-        System.out.println("Encrypted with crypter: " + cipher);
-
-        System.out.println("----Decryption------------------------");
-        String decrypted = crypter.decrypt(cipher, "");
-        System.out.println("Decrypted with crypter: " + decrypted);
-
-        System.out.println("----FIN-------------------------------");
+    public void performanceTest() {
+        Tester tester = new Tester();
+        tester.run();
+        System.out.println(tester.toString());
     }
+
 }
