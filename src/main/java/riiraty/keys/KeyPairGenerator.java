@@ -10,26 +10,27 @@ import java.util.Random;
  * d = private exponent
  */
 public class KeyPairGenerator {
-    private final KeyPair keyPair;
+    private KeyPair keyPair;
 
-    public KeyPairGenerator() {
+    public void keygen() {
         // 1. find two large primes
         BigInteger p = primeGenerator();
         BigInteger q = primeGenerator();
+        System.out.println("(1/5)");
 
         // 2. compute n = pq
         BigInteger n = p.multiply(q);
-        System.out.println("Modulus: " + n);
+        System.out.println("(2/5)");
 
         // 3. compute phi(n) = (p-1)(q-1)
         // Euler's totient function
         BigInteger phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
-        System.out.println("Phi: " + phi);
+        System.out.println("(3/5)");
 
         // 4. find e, where 1 < e < phi 
         // and e is coprime with phi: gcd = 1
         BigInteger e = generateE(phi);
-        System.out.println("public exponent e: " + e);
+        System.out.println("(4/5)");
 
         // 5. compute d with e and phi
         // modular inverse: ax = 1 (mod m)
@@ -38,8 +39,8 @@ public class KeyPairGenerator {
         if (d.min(BigInteger.ZERO).equals(d)) {
             // adding a multiple of phi still satisfies the equation
             d = d.add(phi);
-        } 
-        System.out.println("private exponent d: " + d);
+        }
+        System.out.println("(5/5)");
 
         PublicKey publicKey = new PublicKey(n, e);
         PrivateKey privateKey = new PrivateKey(n, d);
@@ -67,21 +68,23 @@ public class KeyPairGenerator {
      */
     public BigInteger generateE(BigInteger phi) {
         Random random = new Random();
-        BigInteger e = new BigInteger(1024, random);
+        BigInteger e;
+        BigInteger def = BigInteger.valueOf(65537); // default
         int i = 0;
         int j = 0;
         // do while loop so that e < phi applies
         do {
+            e = new BigInteger(1024, random); // generate new e
             while (e.min(phi).equals(phi)) { // while phi < e
                 e = new BigInteger(1024, random); // generate new e
                 i++;
                 if (i > 1000000) {
-                    return BigInteger.valueOf(65537);
+                    return def;
                 }
             }
             j++;
             if (j > 100000) {
-                return BigInteger.valueOf(65537);
+                return def;
             }
         } while (!gcd(e, phi).equals(BigInteger.ONE));
 
