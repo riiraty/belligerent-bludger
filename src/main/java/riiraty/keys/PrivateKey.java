@@ -15,4 +15,9 @@ public class PrivateKey extends Key {
     public PrivateKey(String key) {
         super(key);
     }
+
+    @Override
+    public String toString() {
+        return "\u001b[1mPRIVATE KEY: \u001b[0m" + super.toString();
+    }
 }
