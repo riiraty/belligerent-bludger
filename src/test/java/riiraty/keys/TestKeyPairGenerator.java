@@ -44,7 +44,22 @@ public class TestKeyPairGenerator {
         BigInteger[] array = keyPairGenerator.computeD(e, phi);
         BigInteger d = array[1];
 
-        assertEquals(BigInteger.ONE, d.multiply(e).mod(phi));
+        assertEquals(BigInteger.ONE, d.multiply(e).mod(phi)); // de(mod(phi)) = 1
+    }
+
+    @Test
+    public void generatedKeysArePair() {
+        keyPairGenerator.keygen();
+        PublicKey publicKey = keyPairGenerator.getKeys().getPublicKey();
+        PrivateKey privateKey = keyPairGenerator.getKeys().getPrivateKey();
+
+        BigInteger testValue = new BigInteger("123");
+        // encrypt c = m^e(mod(n))
+        BigInteger cipher = testValue.modPow(publicKey.getExponent(), publicKey.getModulus());
+        // decrypt m = c^d(mod(n))
+        BigInteger decipher = cipher.modPow(privateKey.getExponent(), privateKey.getModulus());
+
+        assertEquals(testValue, decipher);
     }
 
 }

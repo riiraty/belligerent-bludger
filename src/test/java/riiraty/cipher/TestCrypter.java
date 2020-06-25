@@ -2,7 +2,7 @@ package riiraty.cipher;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
 import riiraty.keys.PublicKey;
@@ -68,6 +68,26 @@ public class TestCrypter {
         String decrypted = keyCrypter.decrypt("NDcxODgxNjA=", "MjAxOTMwMjE2NzoyNTM2MzIwNTk=");
 
         assertEquals("Test", decrypted);;
+    }
+
+    @Test
+    public void whitespacesRemainAsOriginal() {
+        String original = "  This is  a VERY secret  msg     .  ";
+
+        String encrypted = keyCrypter.encrypt(original, "");
+        String decrypted = keyCrypter.decrypt(encrypted, "");
+
+        assertEquals(original, decrypted);
+    }
+
+    @Test
+    public void BasicCharactersRemainAsOriginal() {
+        String original = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+        String encrypted = keyCrypter.encrypt(original, "");
+        String decrypted = keyCrypter.decrypt(encrypted, "");
+
+        assertEquals(original, decrypted);
     }
 
 }
