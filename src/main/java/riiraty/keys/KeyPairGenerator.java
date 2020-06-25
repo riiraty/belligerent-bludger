@@ -4,14 +4,18 @@ import java.math.BigInteger;
 import java.util.Random;
 
 /**
- * Computes the needes variables for the keys.
- * n = modulus
- * e = public exponent
- * d = private exponent
+ * Generates RSA keypairs used for encryption and decryption.
+ *
  */
 public class KeyPairGenerator {
     private KeyPair keyPair;
 
+    /**
+     * Computes the needes variables for the keys.
+     * n = modulus
+     * e = public exponent
+     * d = private exponent
+     */
     public void keygen() {
         // 1. find two large primes
         BigInteger p = primeGenerator();
@@ -33,7 +37,7 @@ public class KeyPairGenerator {
         System.out.println("(4/5)");
 
         // 5. compute d with e and phi
-        // modular inverse: ax = 1 (mod m)
+        // so that de(mod(phi)) = 1;
         BigInteger d = computeD(e, phi)[1];
         // check that d is not negative
         if (d.min(BigInteger.ZERO).equals(d)) {
@@ -60,25 +64,25 @@ public class KeyPairGenerator {
 
     /**
      * Finds an e that is coprime with phi.
-     * Limited tries before a default value is used.
-     * 65537 0x10001, 4th Fermat number, is a prime
+     * Limited tries before a default value is used:
+     * 65537 (0x10001), 4th Fermat number, is a prime.
      * 
-     * @param phi is the totient function of modulus n
-     * @return public exponent
+     * @param phi the totient function of modulus n
+     * @return public exponent e
      */
     public BigInteger generateE(BigInteger phi) {
         Random random = new Random();
         BigInteger e;
         BigInteger def = BigInteger.valueOf(65537); // default
+
         int i = 0;
         int j = 0;
-        // do while loop so that e < phi applies
         do {
-            e = new BigInteger(1024, random); // generate new e
-            while (e.min(phi).equals(phi)) { // while phi < e
-                e = new BigInteger(1024, random); // generate new e
+            e = new BigInteger(1024, random);
+            while (e.min(phi).equals(phi)) { // while e > phi
+                e = new BigInteger(1024, random);
                 i++;
-                if (i > 1000000) {
+                if (i > 100000) {
                     return def;
                 }
             }
@@ -86,14 +90,18 @@ public class KeyPairGenerator {
             if (j > 100000) {
                 return def;
             }
-        } while (!gcd(e, phi).equals(BigInteger.ONE));
+        } while (!gcd(e, phi).equals(BigInteger.ONE)); // while gcd(e, phi) != 1
 
         return e;
     }
 
-    /** 
+    /**
      * Recursive basic Euclidean algorithm to find
-     * the greatest common denominator (gcd) of two BigIntegers
+     * the greatest common denominator (gcd) of two BigIntegers.
+     * 
+     * @param a first number
+     * @param b second number
+     * @return the greatest common denominator
      */
     public BigInteger gcd(BigInteger a, BigInteger b) {
         if (b.equals(BigInteger.ZERO)) {
@@ -105,10 +113,12 @@ public class KeyPairGenerator {
 
     /**
      * Recursive Extended Euclidean algorithm to compute
-     * the private exponent d: computeD(e, phi)
+     * the private exponent d.
+     * (When called with computeD(e, phi))
+     * 
      * @param d
      * @param s
-     * @return
+     * @return an array where array[1] is private exponent d
      */
     public BigInteger[] computeD(BigInteger d, BigInteger s) {
         /*

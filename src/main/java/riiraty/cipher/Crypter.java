@@ -25,21 +25,17 @@ public class Crypter {
         // for testing
     }
 
-    public void setKeyPair(KeyPair keyPair) {
-        this.defaultKeyPair = keyPair;
-    }
-
     /**
      * This method encrypts a String with RSA public key.
      * Base64 encoding is used for the ciphered BigInt.
      * 
      * @param msg as String
-     * @return ciphered message encoded to Base64
+     * @return ciphered message encoded with Base64
      */
     public String encrypt(String msg, String key) {
         BigInteger msgBigInt = messageToBigInt(msg);
         BigInteger encrypted;
-
+        // encrypt c = m^e(mod(n))
         // if no key was given, use default
         if (key.equals("")) {
             encrypted = msgBigInt.modPow(defaultKeyPair.getPublicKey().getExponent(), 
@@ -65,7 +61,7 @@ public class Crypter {
         String decoded = Base64Tool.decode(cipher);
         BigInteger asBigInt = new BigInteger(decoded);
         BigInteger decrypted;
-
+        // decrypt m = c^d(mod(n))
         // if no key was given, use default
         if (key.equals("")) {
             decrypted = asBigInt.modPow(defaultKeyPair.getPrivateKey().getExponent(), 
@@ -80,7 +76,7 @@ public class Crypter {
     }
 
     /**
-     * Converts String to BigInt.
+     * Converts String to BigInteger.
      * 
      * @param message as String
      * @return BigInt representation of String
@@ -93,7 +89,7 @@ public class Crypter {
     }
 
     /**
-     * Converts BigInt to String.
+     * Converts BigInteger to String.
      * 
      * @param cipher
      * @return String representation of BigInt 
