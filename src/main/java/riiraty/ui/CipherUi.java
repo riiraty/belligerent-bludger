@@ -59,7 +59,7 @@ public class CipherUi {
                     performanceTest();
                     break;
                 default:
-                    System.out.println("---------\u001b[31;1mNot a valid command.\u001b[0m---------");
+                    System.out.println(error());
                     break;
             }
 
@@ -92,7 +92,7 @@ public class CipherUi {
             System.out.println("--------------\u001b[32mdecrypting\u001b[0m--------------");
             System.out.println("\u001b[1mOriginal message: \u001b[0m" + decrypted);
         } catch (Exception e) {
-            System.out.println("---------\u001b[31;1mSomething went wrong\u001b[0m---------");
+            System.out.println(error());
         }
 
     }
@@ -109,20 +109,36 @@ public class CipherUi {
             System.out.println("--------------\u001b[32mencrypting\u001b[0m-------------");    
             System.out.println("\u001b[1mCiphered message: \u001b[0m" + cipher);
         } catch (Exception e) {
-            System.out.println("---------\u001b[31;1mSomething went wrong\u001b[0m---------");
+            System.out.println(error());
         }
 
     }
 
     public void keygen() {
-        System.out.println("-------------generating keys--------------");
-        keyPairGenerator.keygen();
+        try {
+            System.out.println("-------------generating keys--------------");
+            keyPairGenerator.keygen();
+            System.out.println(keyPairGenerator.getKeys().toString());
+        } catch (Exception e) {
+            System.out.println(error());
+        }
     }
 
     public void performanceTest() {
-        Tester tester = new Tester();
-        tester.run();
-        System.out.println(tester.toString());
+        System.out.print("Number of rounds: ");
+        String rounds = scanner.nextLine();
+        
+        try {
+            int n = Integer.parseInt(rounds);
+            Tester tester = new Tester(n);
+            tester.run();
+        } catch (Exception e) {
+            System.out.println(error());
+        }
+    }
+
+    private String error() {
+        return "------------\u001b[31;1mInvalid input.\u001b[0m------------";
     }
 
 }

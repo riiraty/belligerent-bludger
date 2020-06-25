@@ -20,21 +20,17 @@ public class KeyPairGenerator {
         // 1. find two large primes
         BigInteger p = primeGenerator();
         BigInteger q = primeGenerator();
-        System.out.println("(1/5)");
 
         // 2. compute n = pq
         BigInteger n = p.multiply(q);
-        System.out.println("(2/5)");
 
         // 3. compute phi(n) = (p-1)(q-1)
         // Euler's totient function
         BigInteger phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
-        System.out.println("(3/5)");
 
         // 4. find e, where 1 < e < phi 
         // and e is coprime with phi: gcd = 1
         BigInteger e = generateE(phi);
-        System.out.println("(4/5)");
 
         // 5. compute d with e and phi
         // so that de(mod(phi)) = 1;
@@ -44,13 +40,11 @@ public class KeyPairGenerator {
             // adding a multiple of phi still satisfies the equation
             d = d.add(phi);
         }
-        System.out.println("(5/5)");
 
         PublicKey publicKey = new PublicKey(n, e);
         PrivateKey privateKey = new PrivateKey(n, d);
 
         this.keyPair = new KeyPair(publicKey, privateKey);
-        System.out.println(keyPair.toString());
     }
 
     public KeyPair getKeys() {
