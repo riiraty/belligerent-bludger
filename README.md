@@ -30,3 +30,5 @@ Implementation of RSA cryptography algorithm in Java, simple CLI to use the cryp
 [Week 5](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/weekly-reports/weekly-report-5.md)
 
 [Week 6](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/weekly-reports/weekly-report-6.md)
+
+[Final week](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/weekly-reports/weekly-report-final.md)
