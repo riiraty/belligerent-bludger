@@ -46,6 +46,4 @@ jacocoTestReport {
 
 check.dependsOn jacocoTestReport
 
-checkstyleMain.exclude 'riiraty/ui/*'
-
 checkstyleTest.enabled = false

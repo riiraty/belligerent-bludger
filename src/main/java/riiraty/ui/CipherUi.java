@@ -34,7 +34,7 @@ public class CipherUi {
             System.out.print("Give command: ");
             String command = scanner.nextLine();
 
-            switch(command) {
+            switch (command) {
                 case "d":
                     decrypt();
                     break;
