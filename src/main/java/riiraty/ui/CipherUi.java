@@ -61,6 +61,8 @@ public class CipherUi {
         System.out.println("Goodbye.");   
     }
 
+    // Command functions:
+
     public void info() {
         System.out.println("--------------------------------------");
         System.out.println("\u001b[1mCommand options:\u001b[0m ");
@@ -129,6 +131,10 @@ public class CipherUi {
         }
     }
 
+    
+    /** 
+     * @return String error message after Exceptions
+     */
     private String error() {
         return "------------\u001b[31;1mInvalid input.\u001b[0m------------";
     }

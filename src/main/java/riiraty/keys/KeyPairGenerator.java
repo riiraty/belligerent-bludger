@@ -47,10 +47,19 @@ public class KeyPairGenerator {
         this.keyPair = new KeyPair(publicKey, privateKey);
     }
 
+    
+    /** 
+     * @return most recent KeyPair
+     */
     public KeyPair getKeys() {
         return keyPair;
     }
 
+    
+    /** 
+     * Returns a prime of size 512 bit.
+     * @return BigInteger
+     */
     public BigInteger primeGenerator() {
         Random random = new Random();
         return BigInteger.probablePrime(512, random);

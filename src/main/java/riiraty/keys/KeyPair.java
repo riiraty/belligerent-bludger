@@ -12,14 +12,26 @@ public class KeyPair {
         this.privateKey = privateKey;
     }
 
+    
+    /** 
+     * @return PublicKey
+     */
     public PublicKey getPublicKey() {
         return publicKey;
     }
 
+    
+    /** 
+     * @return PrivateKey
+     */
     public PrivateKey getPrivateKey() {
         return privateKey;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         String pub = getPublicKey().toString();

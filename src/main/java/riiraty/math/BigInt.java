@@ -64,6 +64,10 @@ public class BigInt {
     public static final BigInt ZERO = new BigInt("0");
     public static final BigInt ONE = new BigInt("1");
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         // if zero
         if (signum == 0) {

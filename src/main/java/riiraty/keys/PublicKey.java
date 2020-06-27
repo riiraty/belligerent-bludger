@@ -16,6 +16,10 @@ public class PublicKey extends Key {
         super(key);
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "\u001b[1mPUBLIC KEY: \u001b[0m" + super.toString();

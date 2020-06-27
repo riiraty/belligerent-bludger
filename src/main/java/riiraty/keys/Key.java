@@ -22,14 +22,26 @@ public abstract class Key {
         this.exponent = new BigInteger(array[1]);
     }
 
+    
+    /** 
+     * @return BigInteger
+     */
     public BigInteger getModulus() {
         return modulus;
     }
 
+    
+    /** 
+     * @return BigInteger
+     */
     public BigInteger getExponent() {
         return exponent;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         String key = getModulus().toString() + ":" + getExponent().toString();

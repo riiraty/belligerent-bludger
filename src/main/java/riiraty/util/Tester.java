@@ -5,6 +5,9 @@ import java.util.Random;
 import riiraty.cipher.Crypter;
 import riiraty.keys.KeyPairGenerator;
 
+/**
+ * Performance testing for the program.
+ */
 public class Tester {
     private int n;
     private long[] times;
@@ -44,6 +47,10 @@ public class Tester {
         System.out.println("Total test time: " + formatStop + " ms" );
     }
 
+    /**
+     * Creates an array of random Strings 
+     * and an array of their ciphers.
+     */
     private void init() {
         // init random messages
         for (int i = 0; i < n; i++) {
@@ -56,6 +63,12 @@ public class Tester {
         }
     }
 
+    
+    /** 
+     * Creates a random String of length 64 chars
+     * using specified characters.
+     * @return String
+     */
     private String randomString() {
         String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
         Random rnd = new Random();
@@ -67,6 +80,11 @@ public class Tester {
         return sb.toString();
     }
     
+    
+    /** 
+     * @param times an array of runtimes
+     * @return double average time from parameter array
+     */
     private double getAverage(long[] times) {
         double total = 0;
         for (long time : times) {
@@ -75,6 +93,11 @@ public class Tester {
         return total / n;
     }
 
+    
+    /** 
+     * Creates n pairs of keys and calculates an average.
+     * @return double
+     */
     private double keygen() {
         KeyPairGenerator keyPairGenerator = new KeyPairGenerator();
         long t;
@@ -89,6 +112,11 @@ public class Tester {
     }
     
 
+    
+    /** 
+     * Encrypts n messages and calculates an average for signle encryption.
+     * @return double
+     */
     private double encrypt() {
         long t;
         for (int i = 0; i < n; i++) {
@@ -101,6 +129,11 @@ public class Tester {
         return milliseconds;
     }
 
+    
+    /** 
+     * Decrypts n ciphers and calculates an average for signle decryption.
+     * @return double
+     */
     private double decrypt() {
         long t;
         for (int i = 0; i < n; i++) {
