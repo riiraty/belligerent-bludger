@@ -23,8 +23,8 @@ The encryption is tested by encrypting these elements and calculating an average
 
 The total time spent initializing and running the <code>Tester</code> is displayed at the end.
 
-![alt text](https://github.com/riiraty/ "example with 10 rounds")
+![alt text](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/pics/test-10.png "example with 10 rounds")
 
-![alt text](https://github.com/riiraty/ "example with 1000 rounds")
+![alt text](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/pics/test-1000.png "example with 1000 rounds")
 
-![alt text](https://github.com/riiraty/ "example with 100000 rounds")
+![alt text](https://github.com/riiraty/belligerent-bludger/blob/master/documentation/pics/test-100000.png "example with 100000 rounds")
